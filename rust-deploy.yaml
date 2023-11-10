@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rustapp-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rustapp
+  template:
+    metadata:
+      labels:
+        app: rustapp
+    spec:
+      containers:
+        - name: rustapp
+          image: nalexguild1/rustapp5:v5
+          ports:
+            - containerPort: 80
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://postgres:postgres@postgresql-service:5432/postgres"
